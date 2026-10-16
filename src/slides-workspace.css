@@ -46,3 +46,30 @@
 .editor-root.slides-workspace .stage-svg:focus{outline:none}
 @media(max-width:700px){.editor-root.slides-workspace .inline-risers{padding:5px 7px;gap:5px}.editor-root.slides-workspace .inline-risers .button{min-height:38px;height:38px;padding:0 8px;font-size:12px}.editor-root.slides-workspace .inline-risers label{font-size:11px}.editor-root.slides-workspace .inline-risers input,.editor-root.slides-workspace .inline-risers select{height:38px;min-height:38px;font-size:16px}}
 .bulk-place-actions{display:grid;gap:5px;padding:8px 10px;border-bottom:1px solid #eee7ea}.bulk-place-actions button{display:flex;align-items:center;justify-content:center;gap:6px;min-height:34px;padding:6px 8px;border-radius:5px;font-size:12px;line-height:18px;background:#f3e5e9;color:#92283a;border:1px solid #e5ccd5}.bulk-place-actions button+button{background:white;border-color:#e4dce0;color:#806a74;font-size:11px}.bulk-place-actions button:hover{background:#ecd6de}
+/* Bloc identity: rehearsal-paper neutrals and a confident red accent. */
+.slides-brand{display:flex;width:auto;height:36px;gap:7px;padding:0;text-decoration:none}
+.bloc-symbol{display:grid;width:25px;height:25px;grid-template-columns:repeat(2,1fr);gap:3px;transform:rotate(-3deg)}
+.bloc-symbol span{background:#aa293b;border-radius:2px}
+.bloc-wordmark{font-size:25px;letter-spacing:-1.5px;font-weight:800;color:#382c30;line-height:1}
+.slides-brand .bloc-wordmark span{background:none;color:#b22b40}
+.slides-document-header{border-top:3px solid #a9283c;background:#fffefa}
+.slides-document-name>button{font-weight:600;letter-spacing:-.4px}
+.slides-save{color:#817773}
+.slides-toolbar{background:#f1eeea;border:1px solid #e7e1db;border-radius:4px}
+.slides-toolbar button[aria-pressed=true]{background:#f3dfe0;color:#9b2537;box-shadow:inset 0 -2px #ae293a}
+.slides-toolbar button:hover:not(:disabled){background:#e8e2dc}
+.slides-share{border-radius:6px;background:#aa293b;padding:0 17px}
+.bloc-save-button{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:40px;min-width:88px;padding:0 13px;border:1px solid #d9cdc5;border-radius:6px;background:#fffefa;color:#573f43;font-size:13px;font-weight:600}
+.bloc-save-button:hover:not(:disabled){background:#f5ebe7;border-color:#b88b8b}
+.bloc-save-button:disabled{opacity:.65;cursor:wait}
+.save-spinner{animation:bloc-saving 1s linear infinite}
+@keyframes bloc-saving{to{transform:rotate(360deg)}}
+@media screen{
+.editor-root.slides-workspace .editor-main{background:#efede9}
+.editor-root.slides-workspace .chart-sidebar{background:#faf8f4;border-right-color:#e2dbd3}
+.slides-workspace .chart-card.active{background:#fff8f5;border-color:#bf6c76;box-shadow:inset 3px 0 #aa293b}
+.editor-root.slides-workspace .canvas-column{box-shadow:0 2px 8px #49352b14;border-color:#ded7cd}
+.editor-root.slides-workspace .music-dock{border-color:#ded7cd}
+}
+@media(max-width:700px){.bloc-wordmark{display:none}.slides-brand{width:25px}.bloc-save-button{min-width:35px;min-height:34px;padding:0 8px}.bloc-save-button span{display:none}.slides-share{padding:0 11px}.slides-document-name>button{max-width:38vw}.slides-document-header{gap:7px}}
+@media(prefers-reduced-motion:reduce){.save-spinner{animation:none}}
