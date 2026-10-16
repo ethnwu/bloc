@@ -17,6 +17,19 @@ One show has a shared cast and stage. Each song contains a sequence of charts. A
 - Follow-performer view, read-only rehearsal links and revocation, chart printing, JSON export/import.
 - Responsive layout and system typography with no remote fonts or trackers.
 
+## StageBook workflow update
+
+- Numbered cast groups, stage placement queues, global names and group colors.
+- Blank or copied charts, animated transitions, thumbnail overview and chart reordering.
+- Props with shape, color, fill, labels and performer attachment; partners move together.
+- Graphical riser placement, full/half decks, staggered presets and reusable saved stages.
+- Centered mirrored number line, custom labels, optional grid and configurable snapping.
+- Expanded working canvas, collapsible panels and stage zoom.
+- Owner-controlled edit invitations, member permissions and revocation. Active workbooks synchronize every two seconds; independent changes merge, conflicting changes stop with a backup/export option.
+- Immutable short share codes, read-only snapshots and independent editable imports. Snapshots omit audio.
+
+These implement the demonstrated workflow; this is not a claim of complete parity with every StageBook release. Email verification and emailed password resets require the still-disabled outbound email service.
+
 ## Stack
 
 React, TypeScript, Vite, SVG, Hono, Better Auth, Drizzle, Cloudflare Workers and D1. Audio is stored in bounded binary chunks with HTTP range support. All project and audio access is authorized on the server. Account isolation, origin checks, bounded uploads, authentication rate limits, and optimistic revisions are enforced.
