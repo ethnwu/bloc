@@ -29,3 +29,10 @@ export function timeLabel(t:number){return `${Math.floor(t/60)}:${String(Math.fl
 export function createGroup(show:Show,name:string,count:number,color:string):Show{const s=structuredClone(show),group={id:newId(),name,color};s.groups=[...(s.groups||[]),group];for(let i=0;i<count;i++){const p:Performer={id:newId(),name:`${name} ${i+1}`,number:String(i+1),part:name,color,groupId:group.id};s.cast.push(p);s.songs.forEach(song=>song.charts.forEach(c=>c.positions[p.id]={x:0,y:0,queued:true}))}return s}
 export function copyChart(chart:Chart,blank=false):Chart{const c=structuredClone(chart);c.id=newId();if(blank){c.positions=Object.fromEntries(Object.keys(chart.positions).map(id=>[id,{x:0,y:0,queued:true}]));c.props=[];c.partners={}}return c}
 export function interpolateCharts(a:Chart,b:Chart,t:number):Record<string,Point>{return Object.fromEntries(Object.entries(b.positions).map(([id,end])=>{const start=a.positions[id]||end;return[id,start.queued||end.queued?(t<1?start:end):{x:start.x+(end.x-start.x)*t,y:start.y+(end.y-start.y)*t}]}))}
+
+// Derive chart labels without changing the roster's stored full names.
+export function studentLabels(cast:Pick<Performer,'id'|'name'>[]):Record<string,string>{
+ const parsed=cast.map(p=>{const comma=p.name.split(',');const words=(comma.length>1?comma.slice(1).join(' '):p.name).trim().split(/\s+/).filter(Boolean);const first=words[0]||p.name.trim();const last=comma.length>1?comma[0].trim():(words.length>1?words[words.length-1]:'');return{id:p.id,first,last,key:first.normalize('NFKC').toLocaleLowerCase()}});
+ const counts=new Map<string,number>();for(const p of parsed)counts.set(p.key,(counts.get(p.key)||0)+1);
+ return Object.fromEntries(parsed.map(p=>[p.id,counts.get(p.key)!>1&&p.last?`${p.first} ${Array.from(p.last)[0].toLocaleUpperCase()}.`:p.first]));
+}
