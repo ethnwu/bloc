@@ -17,7 +17,8 @@
   },
   "vars": {
     "PUBLIC_URL": "https://bloc.ethanwu.me",
-    "EMAIL_ENABLED": "false"
+    "EMAIL_ENABLED": "false",
+    "ADDITIONAL_ORIGIN": "https://bloc.ewuf4n.workers.dev"
   },
   "observability": {
     "enabled": true
@@ -34,5 +35,6 @@
       "pattern": "bloc.ethanwu.me",
       "custom_domain": true
     }
-  ]
+  ],
+  "workers_dev": true
 }
