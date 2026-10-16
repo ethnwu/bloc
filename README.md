@@ -99,3 +99,7 @@ bloc is independent and does not use StageBook branding, source code, or artwork
 Bloc includes a standalone web app manifest, PNG application icons, Apple touch metadata and safe-area support. In Safari choose Share → Add to Home Screen, enable Open as Web App if shown, and launch Bloc from that icon. This is an installable web app, not an App Store binary.
 
 The tablet editor keeps the stage and playback on screen, uses contextual Cast/Risers/Tools panels, and offers tap-to-place, multiple selection, nudge controls and a pan mode for zoomed charts. Portrait, landscape and desktop layouts are supported. Cloud workbooks and audio require connectivity. The service worker caches only a public offline notice; it does not cache authenticated data or claim offline editing. Local recovery still protects unsaved open-workbook changes.
+
+## Simpler desktop workspace
+
+Desktop now shares the stage-first app layout, with larger labeled controls, a searchable Students panel, contextual Stage & risers / More tools, visible Undo and Redo, clear navigation to My shows, labeled chart details and a short Help guide. Interface colors use muted red, neutral paper and gray risers. User-defined cast colors are preserved.
