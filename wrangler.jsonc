@@ -1,0 +1,38 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "bloc",
+  "account_id": "6c9cafc0ba91796d5766fd540c4b4830",
+  "main": "src/server/index.ts",
+  "compatibility_date": "2026-10-16",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "assets": {
+    "directory": "dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": [
+      "/api/*"
+    ]
+  },
+  "vars": {
+    "PUBLIC_URL": "https://bloc.ethanwu.me",
+    "EMAIL_ENABLED": "false"
+  },
+  "observability": {
+    "enabled": true
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "bloc",
+      "database_id": "7e5e09cc-a050-474a-ba11-0d12cbc37de3"
+    }
+  ],
+  "routes": [
+    {
+      "pattern": "bloc.ethanwu.me",
+      "custom_domain": true
+    }
+  ]
+}
