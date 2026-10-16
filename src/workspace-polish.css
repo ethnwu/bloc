@@ -45,3 +45,5 @@
  .editor-root.stage-focus .music-dock .playback{padding:0 7px;gap:4px}
 }
 @media(min-width:801px){.editor-root.stage-focus .workspace-topbar{grid-template-columns:auto auto auto minmax(0,1fr);column-gap:22px}.editor-root.stage-focus .workspace-title{max-width:240px}}
+
+.library-create{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}@media(max-width:700px){.library-head{flex-wrap:wrap;gap:18px}.library-create{justify-content:flex-start}.library-head .library-create .button{margin-top:0}}
