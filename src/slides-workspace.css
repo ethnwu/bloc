@@ -73,3 +73,6 @@
 }
 @media(max-width:700px){.bloc-wordmark{display:none}.slides-brand{width:25px}.bloc-save-button{min-width:35px;min-height:34px;padding:0 8px}.bloc-save-button span{display:none}.slides-share{padding:0 11px}.slides-document-name>button{max-width:38vw}.slides-document-header{gap:7px}}
 @media(prefers-reduced-motion:reduce){.save-spinner{animation:none}}
+
+.bulk-place-actions .arrangement-rows{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:3px 0;font-size:12px;color:#655459}
+.bulk-place-actions .arrangement-rows input{width:66px;min-height:34px;padding:5px 8px;border:1px solid #ddd3d8;border-radius:4px;font-size:14px;background:white}
