@@ -47,12 +47,12 @@ export function placeCastOnStage(show:Pick<Show,'cast'|'stage'>,chart:Chart,mode
  if(rowCount!==undefined&&mode!=='remaining'){
   if(!Number.isInteger(rowCount)||rowCount<1||rowCount>targets.length)throw new Error('Choose a whole number of rows between 1 and the cast size.');
   const count=targets.length,rows=rowCount,columns=Math.ceil(count/rows),mx=Math.min(2,width/5),my=Math.min(2,depth/5),stagger=mode==='staggered',dx=(width-2*mx)/Math.max(1,columns-1+(stagger?.5:0));let index=0;
-  for(let row=0;row<rows;row++){const inRow=Math.floor(count/rows)+(row<count%rows?1:0);for(let col=0;col<inRow;col++){const x=columns===1?width/2:stagger?mx+(Math.floor((columns-inRow)/2)+col+(row%2)*.5)*dx:width/2+(col-(inRow-1)/2)*dx;original[targets[index++].id]={x:Math.round(x*100)/100,y:Math.round((rows===1?depth/2:my+row*(depth-2*my)/(rows-1))*100)/100}}}
+  for(let row=0;row<rows;row++){const inRow=Math.floor(count/rows)+(row<count%rows?1:0);for(let col=0;col<inRow;col++){const x=columns===1?width/2:stagger?width/2+(col-(inRow-1)/2+(rows>1?(row%2?.25:-.25):0))*dx:width/2+(col-(inRow-1)/2)*dx;original[targets[index++].id]={x:Math.round(x*100)/100,y:Math.round((rows===1?depth/2:my+row*(depth-2*my)/(rows-1))*100)/100}}}
   return original;
  }
  if(mode==='staggered'){
   const count=targets.length,columns=Math.max(1,Math.min(count,Math.ceil(Math.sqrt(count*width/(depth*.56))))),rows=Math.ceil(count/columns),mx=Math.min(2,width/5),my=Math.min(2,depth/5),dx=(width-2*mx)/Math.max(1,columns-.5),dy=(depth-2*my)/Math.max(1,rows-1);
-  targets.forEach((person,i)=>{const row=Math.floor(i/columns),inRow=Math.min(columns,count-row*columns),column=i%columns+Math.floor((columns-inRow)/2);original[person.id]={x:Math.round((columns===1?width/2:mx+(column+(row%2)*.5)*dx)*100)/100,y:Math.round((rows===1?depth/2:my+row*dy)*100)/100}});
+  targets.forEach((person,i)=>{const row=Math.floor(i/columns),inRow=Math.min(columns,count-row*columns);original[person.id]={x:Math.round((columns===1?width/2:width/2+(i%columns-(inRow-1)/2+(rows>1?(row%2?.25:-.25):0))*dx)*100)/100,y:Math.round((rows===1?depth/2:my+row*dy)*100)/100}});
   return original;
  }
  if(mode==='all'){const spots=rowsFor(targets.length);targets.forEach((p,i)=>original[p.id]=spots[i]);return original}
