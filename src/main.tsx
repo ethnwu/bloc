@@ -8,6 +8,7 @@ import Editor from './Editor';
 import './style.css';
 import './tablet.css';
 import './workspace-polish.css';
+import './slides-workspace.css';
 if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('/sw.js').catch(()=>{})})}
 export type User={id:string;name:string;email:string};
 export function Logo(){return <a href="/" className="logo" aria-label="bloc home"><span className="logo-mark"><i/><i/><i/><i/></span>bloc<span className="logo-period">.</span></a>}

@@ -103,3 +103,7 @@ The tablet editor keeps the stage and playback on screen, uses contextual Cast/R
 ## Simpler desktop workspace
 
 Desktop now shares the stage-first app layout, with larger labeled controls, a searchable Students panel, contextual Stage & risers / More tools, visible Undo and Redo, clear navigation to My shows, labeled chart details and a short Help guide. Interface colors use muted red, neutral paper and gray risers. User-defined cast colors are preserved.
+
+## Slides-style editor
+
+The editor uses a document header, File/Edit/View/Insert/Stage/Help menus, one editing toolbar, a persistent chart-thumbnail filmstrip and a central stage canvas. Drag thumbnails to reorder charts; click one to jump to its formation. Students open in a right-side panel, and deck tools appear while editing risers. The View menu can hide thumbnails for extra stage room. Workbook, audio, sharing and permission behavior are unchanged.
