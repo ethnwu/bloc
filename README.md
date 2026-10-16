@@ -93,3 +93,9 @@ Stage coordinates are feet; deck heights are inches. Stage right appears on the 
 - [Starling Arts, Choreographing for a Choir](https://www.starlingarts.com/blog/2018/10/8/choreographing-for-a-choir): movement serves the music and varies by ensemble and song.
 
 bloc is independent and does not use StageBook branding, source code, or artwork.
+
+## iPad / Home Screen app
+
+Bloc includes a standalone web app manifest, PNG application icons, Apple touch metadata and safe-area support. In Safari choose Share → Add to Home Screen, enable Open as Web App if shown, and launch Bloc from that icon. This is an installable web app, not an App Store binary.
+
+The tablet editor keeps the stage and playback on screen, uses contextual Cast/Risers/Tools panels, and offers tap-to-place, multiple selection, nudge controls and a pan mode for zoomed charts. Portrait, landscape and desktop layouts are supported. Cloud workbooks and audio require connectivity. The service worker caches only a public offline notice; it does not cache authenticated data or claim offline editing. Local recovery still protects unsaved open-workbook changes.

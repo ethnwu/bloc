@@ -6,6 +6,8 @@ import {makeShow,sampleShow,type ProjectSummary} from './model';
 import Stage from './components/Stage';
 import Editor from './Editor';
 import './style.css';
+import './tablet.css';
+if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('/sw.js').catch(()=>{})})}
 export type User={id:string;name:string;email:string};
 export function Logo(){return <a href="/" className="logo" aria-label="bloc home"><span className="logo-mark"><i/><i/><i/><i/></span>bloc<span className="logo-period">.</span></a>}
 export function Toast({message,onClose}:{message:string;onClose:()=>void}){useEffect(()=>{if(message){const t=setTimeout(onClose,6500);return()=>clearTimeout(t)}},[message]);return message?<div className="toast" role="status">{message}<button aria-label="Dismiss notification" onClick={onClose}><X size={14}/></button></div>:null}
