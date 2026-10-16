@@ -43,7 +43,30 @@ export function placeCastOnStage(show:Pick<Show,'cast'|'stage'>,chart:Chart,mode
  const isPlaced=(p:Point|undefined)=>!!p&&!p.queued&&p.x>=0&&p.x<=width&&p.y>=0&&p.y<=depth;
  const targets=show.cast.filter(p=>mode!=='remaining'||!isPlaced(chart.positions[p.id]));
  const original=structuredClone(chart.positions);if(!targets.length)return original;
+
+ // Rows sit at deck mid-depth; extra rows use the open floor downstage.
+ if(show.stage.decks.length&&mode!=='remaining'){
+  if(rowCount!==undefined&&(!Number.isInteger(rowCount)||rowCount<1||rowCount>targets.length))throw new Error('Choose a whole number of rows between 1 and the cast size.');
+  const tiers:Array<{y:number;spans:Array<[number,number]>}>=[];
+  for(const deck of [...show.stage.decks].sort((a,b)=>a.y-b.y)){const y=deck.y+deck.depth/2;let tier=tiers.find(t=>Math.abs(t.y-y)<.25);if(!tier){tier={y,spans:[]};tiers.push(tier)}tier.spans.push([Math.max(.6,deck.x+.6),Math.min(width-.6,deck.x+deck.width-.6)])}
+  // Adjacent decks form one continuous usable tier, including their shared seams.
+  for(const tier of tiers){const spans=tier.spans.sort((a,b)=>a[0]-b[0]),merged:Array<[number,number]>=[];for(const span of spans){const last=merged.at(-1);if(last&&span[0]-last[1]<=1.21)last[1]=Math.max(last[1],span[1]);else merged.push([...span])}tier.spans=merged}
+  const tierWidth=(t:typeof tiers[number])=>t.spans.reduce((n,[a,b])=>n+b-a,0),mainWidth=Math.max(...tiers.map(tierWidth));
+  for(let i=tiers.length-1;i>=0;i--)if(tierWidth(tiers[i])<mainWidth*.5)tiers.splice(i,1);
+  const front=Math.max(...show.stage.decks.map(d=>d.y+d.depth)),floorStart=front+2,floorEnd=depth-2;
+  const rows=rowCount??Math.min(targets.length,tiers.length+(floorEnd>=floorStart?1:0)),active=tiers.slice(0,rows);
+  const extra=rows-active.length;
+  if(extra&&floorEnd<floorStart)throw new Error('There is no clear floor space for that many rows. Choose fewer rows or adjust the risers.');
+  for(let i=0;i<extra;i++)active.push({y:extra===1?(floorStart+floorEnd)/2:floorStart+i*(floorEnd-floorStart)/(extra-1),spans:[[.6,width-.6]]});
+  let candidates:Point[][]=[];
+  for(let spacing=3;spacing>=1.2;spacing-=.1){candidates=active.map((tier,row)=>{const spots:Point[]=[];for(let k=-Math.ceil(width/spacing);k<=Math.ceil(width/spacing);k++){const x=width/2+(k+(mode==='staggered'&&row%2?.5:0))*spacing;if(tier.spans.some(([a,b])=>x>=a&&x<=b))spots.push({x:Math.round(x*100)/100,y:Math.round(tier.y*100)/100})}return spots.sort((a,b)=>Math.abs(a.x-width/2)-Math.abs(b.x-width/2)||a.x-b.x)});if(candidates.every(a=>a.length>=Math.ceil(targets.length/active.length))&&candidates.reduce((n,a)=>n+a.length,0)>=targets.length)break}
+  if(candidates.some(a=>!a.length)||candidates.reduce((n,a)=>n+a.length,0)<targets.length)throw new Error('The riser layout is too narrow for this cast. Add a row or adjust the risers.');
+  const counts=active.map(()=>0);for(let i=0;i<targets.length;i++){let best=-1;for(let r=0;r<counts.length;r++)if(counts[r]<candidates[r].length&&(best<0||counts[r]<counts[best]))best=r;counts[best]++}
+  let index=0;for(let r=0;r<counts.length;r++)for(const point of candidates[r].slice(0,counts[r]).sort((a,b)=>a.x-b.x))original[targets[index++].id]=point;
+  return original;
+ }
  const rowsFor=(count:number)=>{const columns=Math.max(1,Math.min(count,Math.ceil(Math.sqrt(count*width/(depth*.56))))),rows=Math.ceil(count/columns),mx=Math.min(2,width/5),my=Math.min(2,depth/5),dx=(width-2*mx)/Math.max(1,columns-1),dy=(depth-2*my)/Math.max(1,rows-1);return Array.from({length:count},(_,i)=>{const row=Math.floor(i/columns),inRow=Math.min(columns,count-row*columns);return{x:Math.round((width/2-(inRow-1)*dx/2+(i%columns)*dx)*100)/100,y:Math.round((rows===1?depth/2:my+row*dy)*100)/100}})};
+ if(rowCount===undefined&&mode!=='remaining')rowCount=Math.ceil(targets.length/Math.max(1,Math.ceil(Math.sqrt(targets.length*width/(depth*.56)))));
  if(rowCount!==undefined&&mode!=='remaining'){
   if(!Number.isInteger(rowCount)||rowCount<1||rowCount>targets.length)throw new Error('Choose a whole number of rows between 1 and the cast size.');
   const count=targets.length,rows=rowCount,columns=Math.ceil(count/rows),mx=Math.min(2,width/5),my=Math.min(2,depth/5),stagger=mode==='staggered',dx=(width-2*mx)/Math.max(1,columns-1+(stagger?1:0));let index=0;
