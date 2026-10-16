@@ -36,3 +36,20 @@ export function studentLabels(cast:Pick<Performer,'id'|'name'>[]):Record<string,
  const counts=new Map<string,number>();for(const p of parsed)counts.set(p.key,(counts.get(p.key)||0)+1);
  return Object.fromEntries(parsed.map(p=>[p.id,counts.get(p.key)!>1&&p.last?`${p.first} ${Array.from(p.last)[0].toLocaleUpperCase()}.`:p.first]));
 }
+
+/** Place cast in measured, centered rows without changing the roster or other charts. */
+export function placeCastOnStage(show:Pick<Show,'cast'|'stage'>,chart:Chart,mode:'remaining'|'all'='remaining'):Record<string,Point>{
+ const {width,depth}=show.stage;
+ const isPlaced=(p:Point|undefined)=>!!p&&!p.queued&&p.x>=0&&p.x<=width&&p.y>=0&&p.y<=depth;
+ const targets=show.cast.filter(p=>mode==='all'||!isPlaced(chart.positions[p.id]));
+ const original=structuredClone(chart.positions);if(!targets.length)return original;
+ const rowsFor=(count:number)=>{const columns=Math.max(1,Math.min(count,Math.ceil(Math.sqrt(count*width/(depth*.56))))),rows=Math.ceil(count/columns),mx=Math.min(2,width/5),my=Math.min(2,depth/5),dx=(width-2*mx)/Math.max(1,columns-1),dy=(depth-2*my)/Math.max(1,rows-1);return Array.from({length:count},(_,i)=>{const row=Math.floor(i/columns),inRow=Math.min(columns,count-row*columns);return{x:Math.round((width/2-(inRow-1)*dx/2+(i%columns)*dx)*100)/100,y:Math.round((rows===1?depth/2:my+row*dy)*100)/100}})};
+ if(mode==='all'){const spots=rowsFor(targets.length);targets.forEach((p,i)=>original[p.id]=spots[i]);return original}
+ const fixed=show.cast.filter(p=>isPlaced(chart.positions[p.id])).map(p=>chart.positions[p.id]);
+ for(let attempt=0;attempt<7;attempt++){
+  const occupied=[...fixed],spots:Point[]=[],distance=1.7/(attempt+1);
+  for(const point of rowsFor(Math.ceil(show.cast.length*(1.5+attempt*.75)))){if(occupied.every(p=>Math.hypot(p.x-point.x,(p.y-point.y)*.56)>=distance)){spots.push(point);occupied.push(point);if(spots.length===targets.length)break}}
+  if(spots.length===targets.length){targets.forEach((p,i)=>original[p.id]=spots[i]);return original}
+ }
+ throw new Error('This stage is too crowded to place the remaining students automatically.');
+}

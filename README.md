@@ -107,3 +107,7 @@ Desktop now shares the stage-first app layout, with larger labeled controls, a s
 ## Slides-style editor
 
 The editor uses a document header, File/Edit/View/Insert/Stage/Help menus, one editing toolbar, a persistent chart-thumbnail filmstrip and a central stage canvas. Drag thumbnails to reorder charts; click one to jump to its formation. Students open in a right-side panel, and deck tools appear while editing risers. The View menu can hide thumbnails for extra stage room. Workbook, audio, sharing and permission behavior are unchanged.
+
+## Placement and keyboard editing
+
+Students → Place all on stage brings queued and offstage students onto the current chart without moving students already placed. Arrange everyone in rows redistributes the whole cast. Both are undoable and preserve the roster and other charts. Backspace/Delete removes a selected riser or prop; selected students return to the queue for the current chart. Typing in inputs, textareas or editable text does not trigger stage deletion.

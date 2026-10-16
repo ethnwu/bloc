@@ -32,3 +32,17 @@
 @media(max-width:1000px){.editor-root.slides-workspace .editor-shell.wide-stage{grid-template-columns:152px minmax(0,1fr)}}
 @media(max-width:700px){.editor-root.slides-workspace .editor-shell.wide-stage{grid-template-columns:104px minmax(0,1fr)}}
 @media screen{.editor-root.slides-workspace.filmstrip-hidden .editor-shell.wide-stage{grid-template-columns:minmax(0,1fr)}}
+/* Riser palette follows the same dimensions and focus treatment as the toolbar. */
+.editor-root.slides-workspace .inline-risers{display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;min-height:46px;padding:6px 18px;background:#faf9fa;border-bottom:1px solid #e4dfe1}
+.editor-root.slides-workspace .inline-risers>strong{display:none}
+.editor-root.slides-workspace .inline-risers .button{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:32px;height:32px;line-height:20px;padding:0 10px;margin:0;font-size:13px;font-weight:400;border:1px solid #e0d8dc;border-radius:5px;background:#fff;color:#53494e;box-shadow:none}
+.editor-root.slides-workspace .inline-risers .button:hover:not(:disabled){background:#f1e9ed;border-color:#d8c7ce}
+.editor-root.slides-workspace .inline-risers .button.dark{background:#f0dfe5;color:#982a3b;border-color:#e0c1cc;font-weight:500}
+.editor-root.slides-workspace .inline-risers .button svg{width:15px;height:15px;flex-shrink:0}
+.editor-root.slides-workspace .inline-risers label{display:inline-flex;flex-direction:row;align-items:center;gap:7px;margin:0 3px;min-height:32px;line-height:20px;font-size:12px;font-weight:400;color:#7e6b75;white-space:nowrap}
+.editor-root.slides-workspace .inline-risers select,.editor-root.slides-workspace .inline-risers input{height:32px;min-height:32px;max-width:68px;width:68px;padding:0 7px;border:1px solid #ddd3d8;border-radius:4px;background:#fff;font-size:13px;line-height:20px;box-shadow:none}
+.editor-root.slides-workspace button:focus:not(:focus-visible){outline:none;box-shadow:none}
+.editor-root.slides-workspace button:focus-visible,.editor-root.slides-workspace select:focus-visible,.editor-root.slides-workspace input:focus-visible{outline:2px solid #bd6476;outline-offset:2px}
+.editor-root.slides-workspace .stage-svg:focus{outline:none}
+@media(max-width:700px){.editor-root.slides-workspace .inline-risers{padding:5px 7px;gap:5px}.editor-root.slides-workspace .inline-risers .button{min-height:38px;height:38px;padding:0 8px;font-size:12px}.editor-root.slides-workspace .inline-risers label{font-size:11px}.editor-root.slides-workspace .inline-risers input,.editor-root.slides-workspace .inline-risers select{height:38px;min-height:38px;font-size:16px}}
+.bulk-place-actions{display:grid;gap:5px;padding:8px 10px;border-bottom:1px solid #eee7ea}.bulk-place-actions button{display:flex;align-items:center;justify-content:center;gap:6px;min-height:34px;padding:6px 8px;border-radius:5px;font-size:12px;line-height:18px;background:#f3e5e9;color:#92283a;border:1px solid #e5ccd5}.bulk-place-actions button+button{background:white;border-color:#e4dce0;color:#806a74;font-size:11px}.bulk-place-actions button:hover{background:#ecd6de}
