@@ -1,0 +1,16 @@
+.block-intro{position:fixed;inset:0;z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#faf8f7;animation:bloc-intro-out .4s ease 1.4s forwards}
+.block-intro-mark{display:grid;grid-template-columns:repeat(2,48px);gap:7px;transform:rotate(-3deg)}
+.block-intro-mark i{display:block;width:48px;height:48px;background:#ae293a;border-radius:4px;opacity:0;animation:bloc-block-build .65s cubic-bezier(.22,.8,.3,1.12) forwards}
+.block-intro-mark i:nth-child(1){--block-x:-100px;--block-y:-90px;--block-turn:-35deg;animation-delay:.05s}
+.block-intro-mark i:nth-child(2){background:#d4939c;--block-x:110px;--block-y:-120px;--block-turn:50deg;animation-delay:.2s}
+.block-intro-mark i:nth-child(3){background:#d4939c;--block-x:-110px;--block-y:100px;--block-turn:-55deg;animation-delay:.35s}
+.block-intro-mark i:nth-child(4){--block-x:100px;--block-y:120px;--block-turn:40deg;animation-delay:.5s}
+.block-intro-word{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;font-size:36px;line-height:1;letter-spacing:-2px;font-weight:800;color:#382c30;margin-top:19px;opacity:0;animation:bloc-intro-name .3s ease .95s forwards}.block-intro-word>span{color:#ae293a}
+.block-intro>button{position:absolute;bottom:max(28px,env(safe-area-inset-bottom));right:28px;min-height:44px;padding:8px 14px;border-radius:5px;color:#816e73;font-size:13px;background:transparent}.block-intro>button:hover{background:#f1e6e8}.block-intro>button:focus-visible{outline:2px solid #ae293a;outline-offset:2px}
+@keyframes bloc-block-build{0%{opacity:0;transform:translate(var(--block-x),var(--block-y)) rotate(var(--block-turn)) scale(.7)}65%{opacity:1}100%{opacity:1;transform:translate(0,0) rotate(0) scale(1)}}
+@keyframes bloc-intro-name{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@keyframes bloc-intro-out{to{opacity:0;visibility:hidden}}
+.landing-hero p{max-width:850px}
+@media(min-width:760px){.landing-hero p{white-space:nowrap;max-width:none}}
+@media(max-width:759px){.landing-hero p{max-width:540px;text-wrap:balance}}
+@media(prefers-reduced-motion:reduce){.block-intro{display:none}}

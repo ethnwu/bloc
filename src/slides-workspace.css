@@ -92,3 +92,7 @@
 @media(pointer:coarse){.slides-toolbar button,.slides-toolbar select{min-height:42px}.slides-toolbar{height:48px}.slides-menu>button{min-height:34px}.bp-charts>button{min-height:44px}}
 .show-setup-guide{display:flex;align-items:center;gap:9px;margin:8px 18px 0;padding:12px 14px;border:1px solid #e1d4cf;border-left:3px solid #ac2b3e;background:#fffefa;border-radius:5px;flex-shrink:0;flex-wrap:wrap}.show-setup-guide>div{flex:1;min-width:180px}.show-setup-guide strong{display:block;font-size:14px;color:#4e3b41}.show-setup-guide span{display:block;font-size:12px;color:#8a737b;margin-top:3px}.show-setup-guide button{display:flex;align-items:center;gap:7px;min-height:40px;padding:7px 11px;border:1px solid #ddcece;border-radius:5px;font-size:13px;background:#fff}.show-setup-guide button:hover{background:#f6e9eb}
 @media(max-width:700px){.show-setup-guide{margin:5px 7px 0;padding:10px;gap:6px}.show-setup-guide>div{flex-basis:100%}.show-setup-guide button{font-size:12px;padding:7px 9px}}
+/* Keep the landing description on a single desktop line. */
+.landing-hero p{max-width:850px}
+@media(min-width:760px){.landing-hero p{white-space:nowrap;max-width:none}}
+@media(max-width:759px){.landing-hero p{max-width:540px;text-wrap:balance}}
