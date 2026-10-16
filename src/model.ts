@@ -38,12 +38,17 @@ export function studentLabels(cast:Pick<Performer,'id'|'name'>[]):Record<string,
 }
 
 /** Place cast in measured, centered rows without changing the roster or other charts. */
-export function placeCastOnStage(show:Pick<Show,'cast'|'stage'>,chart:Chart,mode:'remaining'|'all'='remaining'):Record<string,Point>{
+export function placeCastOnStage(show:Pick<Show,'cast'|'stage'>,chart:Chart,mode:'remaining'|'all'|'staggered'='remaining'):Record<string,Point>{
  const {width,depth}=show.stage;
  const isPlaced=(p:Point|undefined)=>!!p&&!p.queued&&p.x>=0&&p.x<=width&&p.y>=0&&p.y<=depth;
- const targets=show.cast.filter(p=>mode==='all'||!isPlaced(chart.positions[p.id]));
+ const targets=show.cast.filter(p=>mode!=='remaining'||!isPlaced(chart.positions[p.id]));
  const original=structuredClone(chart.positions);if(!targets.length)return original;
  const rowsFor=(count:number)=>{const columns=Math.max(1,Math.min(count,Math.ceil(Math.sqrt(count*width/(depth*.56))))),rows=Math.ceil(count/columns),mx=Math.min(2,width/5),my=Math.min(2,depth/5),dx=(width-2*mx)/Math.max(1,columns-1),dy=(depth-2*my)/Math.max(1,rows-1);return Array.from({length:count},(_,i)=>{const row=Math.floor(i/columns),inRow=Math.min(columns,count-row*columns);return{x:Math.round((width/2-(inRow-1)*dx/2+(i%columns)*dx)*100)/100,y:Math.round((rows===1?depth/2:my+row*dy)*100)/100}})};
+ if(mode==='staggered'){
+  const count=targets.length,columns=Math.max(1,Math.min(count,Math.ceil(Math.sqrt(count*width/(depth*.56))))),rows=Math.ceil(count/columns),mx=Math.min(2,width/5),my=Math.min(2,depth/5),dx=(width-2*mx)/Math.max(1,columns-.5),dy=(depth-2*my)/Math.max(1,rows-1);
+  targets.forEach((person,i)=>{const row=Math.floor(i/columns),inRow=Math.min(columns,count-row*columns),column=i%columns+Math.floor((columns-inRow)/2);original[person.id]={x:Math.round((columns===1?width/2:mx+(column+(row%2)*.5)*dx)*100)/100,y:Math.round((rows===1?depth/2:my+row*dy)*100)/100}});
+  return original;
+ }
  if(mode==='all'){const spots=rowsFor(targets.length);targets.forEach((p,i)=>original[p.id]=spots[i]);return original}
  const fixed=show.cast.filter(p=>isPlaced(chart.positions[p.id])).map(p=>chart.positions[p.id]);
  for(let attempt=0;attempt<7;attempt++){
