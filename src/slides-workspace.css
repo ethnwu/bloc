@@ -76,3 +76,15 @@
 
 .bulk-place-actions .arrangement-rows{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:3px 0;font-size:12px;color:#655459}
 .bulk-place-actions .arrangement-rows input{width:66px;min-height:34px;padding:5px 8px;border:1px solid #ddd3d8;border-radius:4px;font-size:14px;background:white}
+
+/* A rehearsal view: stage, audio transport, and one exit control. */
+.editor-root.slides-workspace.presentation-mode{position:fixed;inset:0;z-index:1000;background:#efede9;height:100dvh;width:100vw}
+.editor-root.slides-workspace.presentation-mode .slides-chrome,.editor-root.slides-workspace.presentation-mode .chart-sidebar,.editor-root.slides-workspace.presentation-mode .cast-tray,.editor-root.slides-workspace.presentation-mode .detail-sidebar,.editor-root.slides-workspace.presentation-mode .selection-tools,.editor-root.slides-workspace.presentation-mode .inline-risers{display:none!important}
+.editor-root.slides-workspace.presentation-mode .editor-shell.wide-stage{grid-template-columns:minmax(0,1fr)!important}
+.presentation-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 20px;background:#fffefa;border-bottom:1px solid #e4dcd5;min-height:58px;flex-shrink:0}
+.presentation-heading>span{font-size:18px;font-weight:600;color:#48373c}.presentation-heading small{font-size:13px;font-weight:400;color:#8b777d;margin-left:14px}
+.presentation-heading button{display:flex;align-items:center;gap:7px;border:1px solid #d8c9c9;border-radius:5px;padding:8px 12px;font-size:14px;background:white}
+.presentation-mode .canvas-column{pointer-events:none}
+.presentation-mode .stage-surface.zoomed-stage .stage-svg{width:100%!important;min-width:0!important;height:100%!important}
+.presentation-mode .stage-surface.zoomed-stage{overflow:hidden!important}
+@media(max-width:700px){.presentation-heading{padding:8px 12px}.presentation-heading small{display:block;margin:0}.presentation-heading button{font-size:12px}.bloc-present-button{min-width:34px}}
